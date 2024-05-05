@@ -4,7 +4,7 @@ import { UrlBuilder } from "./UrlBuilder";
 import { IResponse } from "../Interface/IResponse";
 import { IQueryParams } from "../Interface/IQueryParams";
 import { defaultResponse } from "./../utils/defaultResponse";
-import { BASE_URL } from "./../constant/constants";
+import * as CONSTANTS from "./../constant/constants";
 
 /**
  * Fetch Repo data from GitHub API
@@ -27,15 +27,15 @@ export const fetchRepo = async (queryString: string): Promise<IResponse> => {
  * @returns - Final query string ie ready to hit GitHub API
  */
 export const getQueryURL = (requestQuery: IQueryParams): string => {
-    const urlBuilder = new UrlBuilder(BASE_URL) as UrlBuilder;
+    const urlBuilder = new UrlBuilder(CONSTANTS.BASE_URL) as UrlBuilder;
 
     // Hardcoding sort & order as per requirements
-    urlBuilder.setSort("sort", requestQuery.sort);
-    urlBuilder.setOrder("order", requestQuery.order);
+    urlBuilder.setSort(CONSTANTS.SORT_KEY, requestQuery.sort);
+    urlBuilder.setOrder(CONSTANTS.ORDER_KEY, requestQuery.order);
 
-    if (requestQuery.limit) urlBuilder.setPerPage("per_page", requestQuery.limit);
-    if (requestQuery.createdFrom) urlBuilder.setCreated("q=created", requestQuery.createdFrom);
-    if (requestQuery.language) urlBuilder.setLanguage("q=language", requestQuery.language);
+    if (requestQuery.limit) urlBuilder.setPerPage(CONSTANTS.PER_PAGE_KEY, requestQuery.limit);
+    if (requestQuery.createdFrom) urlBuilder.setCreated(CONSTANTS.CREATED_KEY, requestQuery.createdFrom);
+    if (requestQuery.language) urlBuilder.setLanguage(CONSTANTS.LANGUAGE_KEY, requestQuery.language);
 
     return urlBuilder.build();
 };

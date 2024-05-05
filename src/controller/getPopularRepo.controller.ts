@@ -13,6 +13,7 @@ import { IResponse } from "../Interface/IResponse";
  * @returns - Response
  */
 export const getPopularRepo = async (req: Request, res: Response) => {
+    // Hardcoding sort by Stars in descending order as per the requirement
     const requestQuery = { sort: "stars", order: "desc", ...req.query } as IQueryParams;
 
     try {
