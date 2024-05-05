@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import { statusCode } from "../utils/statusCode";
 import { message } from "../utils/locale";
 import { LogErrorMessage } from "./../utils/error-handler";
-import { fetchRepo } from "../helper/helperFunction";
+import { fetchRepo, getQueryURL } from "../helper/helperFunction";
+import { IQueryParams } from "../Interface/IQueryParams";
+import { IResponse } from "../Interface/IResponse";
 
 /**
  * Process any request that hits api end-point /api/popular-repo & respond back
@@ -11,9 +13,12 @@ import { fetchRepo } from "../helper/helperFunction";
  * @returns - Response
  */
 export const getPopularRepo = async (req: Request, res: Response) => {
+    const requestQuery = { sort: "stars", order: "desc", ...req.query } as IQueryParams;
+
     try {
-        const queryString = "https://api.github.com/search/repositories?q=created:>2019-01-10&sort=stars&order=desc";
-        const response = await fetchRepo(queryString);
+        const queryURL = getQueryURL(requestQuery) as string;
+        const response = (await fetchRepo(queryURL)) as IResponse;
+
         return res.status(statusCode.successful_request).send({ successful: true, Message: message.Fetched_successfully, response });
     } catch (error: unknown) {
         console.log(LogErrorMessage(error));
