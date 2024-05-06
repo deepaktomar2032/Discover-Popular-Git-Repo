@@ -1,4 +1,4 @@
-import { RequestValidator } from "./../../src/validator/request.validator";
+import { RequestValidator, IdValidator } from "./../../src/validator/request.validator";
 
 describe("Function RequestValidator", () => {
     it("Responds with an error as createdFrom param is required", () => {
@@ -34,5 +34,22 @@ describe("Function RequestValidator", () => {
         const input = { createdFrom: "2024-01-01", limit: 15, language: "C++" };
         const { error } = RequestValidator.validate(input);
         expect(error).toBeUndefined();
+    });
+});
+
+describe("Function IdValidator", () => {
+    it("Responds with an error as id param is required", () => {
+        const { error } = IdValidator.validate({});
+        expect(error).toBeDefined();
+    });
+
+    it("Responds with no error as id param is supplied", () => {
+        const { error } = IdValidator.validate({ id: 111 });
+        expect(error).toBeUndefined();
+    });
+
+    it("Responds with error as id param should be type of number", () => {
+        const { error } = IdValidator.validate({ id: "abc" });
+        expect(error).toBeDefined();
     });
 });
