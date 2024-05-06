@@ -42,6 +42,66 @@ paths:
                 400:
                     description: Bad request
 
+    # markFavouriteRepo
+    /api/favourite-repo/{id}:
+        post:
+            tags:
+                - GitHub Repo
+            summary: Mark Favourite Repo
+            description: ""
+            parameters:
+                - in: path
+                  name: "id"
+                  required: true
+                  schema:
+                      type: string
+                      default: "773286980"
+                  description: "Enter Repo ID"
+            responses:
+                200:
+                    description: Marked Favourite Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/markFavouriteRepoResponse"
+
+        # unMarkFavouriteRepo
+        delete:
+            tags:
+                - GitHub Repo
+            summary: Unmark Favourite Repo
+            description: ""
+            parameters:
+                - in: path
+                  name: "id"
+                  required: true
+                  schema:
+                      type: string
+                      default: "773286980"
+                  description: "Enter Repo ID"
+            responses:
+                200:
+                    description: UnMarked Favourite Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/unMarkFavouriteRepoResponse"
+
+        # fetchFavouriteRepo
+    /api/favourite-repo:
+        get:
+            tags:
+                - GitHub Repo
+            summary: Get Favourite Repo's
+            description: ""
+            responses:
+                200:
+                    description: Fetched Favourite Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/fetchFavouriteRepoResponse"
+
 components:
     schemas:
         getPopularRepoResponse:
@@ -64,3 +124,34 @@ components:
                         items:
                             type: array
                             example: "Array of objects with all GitHub Repo's"
+
+        markFavouriteRepoResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                Message:
+                    type: string
+                    example: "Marked Favourite Successfully!"
+
+        unMarkFavouriteRepoResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                Message:
+                    type: string
+                    example: "UnMarked Favourite Successfully!"
+
+        fetchFavouriteRepoResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                Message:
+                    type: string
+                    example: "Fetched Favourite Successfully!"
+                favouriteRepoList:
+                    type: array
+                    items:
+                        type: number
