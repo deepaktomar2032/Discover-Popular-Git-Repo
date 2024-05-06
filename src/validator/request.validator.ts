@@ -5,3 +5,7 @@ export const RequestValidator = Joi.object({
     language: Joi.string(),
     limit: Joi.number(),
 });
+
+export const IdValidator = Joi.object({
+    id: Joi.number().required()
+});
