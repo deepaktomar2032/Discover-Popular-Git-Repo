@@ -1,0 +1,66 @@
+openapi: 3.0.0
+info:
+    title: GitHub Repo API
+    version: 1.0.0
+    description: API Docs - Application for discovering popular repositories on GitHub
+paths:
+    # getPopularRepo
+    /api/popular-repo:
+        get:
+            tags:
+                - GitHub Repo
+            summary: Get GitHub Repo's
+            description: ""
+            parameters:
+                - in: query
+                  name: createdFrom
+                  schema:
+                      type: string
+                      pattern: '^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$'
+                      default: "2024-01-01"
+                  description: Start date for repository creation (yyyy-mm-dd)
+                  required: true
+                - in: query
+                  name: language
+                  schema:
+                      type: string
+                      default: "Javascript"
+                  description: Language of the GitHub Repo's
+                - in: query
+                  name: limit
+                  schema:
+                      type: number
+                      default: 20
+                  description: Number of the GitHub Repo's to retrieve
+            responses:
+                200:
+                    description: Fetched Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/getPopularRepoResponse"
+                400:
+                    description: Bad request
+
+components:
+    schemas:
+        getPopularRepoResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                Message:
+                    type: string
+                    example: "Fetched Successfully!"
+                result:
+                    type: object
+                    properties:
+                        total_count:
+                            type: number
+                            example: 1700
+                        incomplete_results:
+                            type: boolean
+                            example: true
+                        items:
+                            type: array
+                            example: "Array of objects with all GitHub Repo's"
