@@ -15,7 +15,9 @@ const createRoutes = () => {
 
 const start = async () => {
     try {
-        await listenPort(Number(Port));
+        if (process.env.NODE_ENV !== "test") {
+            await listenPort(Number(Port));
+        }
         await createRoutes();
     } catch (error) {
         console.log(error);

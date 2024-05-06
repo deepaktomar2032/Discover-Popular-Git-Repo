@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es2016",
         "module": "commonjs",
-        "types": ["node"],
+        "types": ["node", "jest"],
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "emitDecoratorMetadata": true,
@@ -14,5 +14,5 @@
         "outDir": "./build"
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "test/**/*.test.ts"]
 }
