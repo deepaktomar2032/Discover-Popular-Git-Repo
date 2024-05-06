@@ -13,7 +13,7 @@ export const routes = (router: Router) => {
     router.get("/api/popular-repo", queryValidator, getPopularRepo);
 
     // Routes to Mark/Unmark/Fetch favourite Repo
-    router.get("/api/favourite-repo", fetchFavouriteRepo);
     router.post("/api/favourite-repo/:id", idValidator, markFavouriteRepo);
     router.delete("/api/favourite-repo/:id", idValidator, unMarkFavouriteRepo);
+    router.get("/api/favourite-repo", fetchFavouriteRepo);
 };
